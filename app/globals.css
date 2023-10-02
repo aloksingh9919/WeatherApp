@@ -2,16 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-.bgcolor{
-    background:linear-gradient(rgba(11, 208, 238, 0.247),rgba(4, 16, 239, 0.416));
-    
+* {
+  overflow-x: hidden;
+  color: black;
 }
-.bgcolorDeatils{
-    /* background:linear-gradient(rgba(3, 182, 209, 0.701),rgba(4, 16, 239, 0.581)); */
-    @apply bg-gradient-to-b from-blue-900 to-sky-500
-    
+
+.bgnav {
+  background: linear-gradient(
+    rgba(247, 103, 78, 0.541),
+    rgba(68, 86, 86, 0.578)
+  );
 }
-.bgtop{
-    background:linear-gradient(rgba(3, 182, 209, 0.327),rgba(4, 16, 239, 0.229));
-    
+.bglogo {
+  background: linear-gradient(
+    rgba(252, 255, 52, 0.658),
+    rgba(253, 112, 112, 0.651)
+  );
+}
+.bgcolorDeatils {
+  background: linear-gradient(
+    rgba(81, 70, 70, 0.856),
+    rgba(89, 18, 54, 0.549)
+  );
+}
+.bgtop {
+  background: linear-gradient(
+    rgba(52, 255, 255, 0.236),
+    rgba(253, 112, 112, 0.651)
+  );
+}
+.bghour {
+  background: linear-gradient(
+    rgba(238, 241, 7, 0.129),
+    rgba(253, 112, 112, 0.651)
+  );
 }

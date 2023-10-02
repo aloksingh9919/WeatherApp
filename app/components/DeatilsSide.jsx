@@ -1,45 +1,89 @@
 "use client";
-import { useEffect, useState } from "react";
-import DayForecastCard from "./DayForecastCard";
+import { useEffect, useState,useMemo} from "react";
 import HourCard from "./HourCard";
 import Topcard from "./Topcard";
 import axios from "axios";
-const DeatilsSide = () => {
-  const [details, SetDetails] = useState([]);
+import DayForecastCard from "./DayForecastCard";
+import { filterForecast } from "../libs/dateFormat";
+
+
+const DeatilsSide = ({ params }) => {
+  const [details, setDetails] = useState({});
+  const [foreCast, setForecast] = useState([]);
+  const [hourlyForecast, sethourlyForecast] = useState([]);
+
+
+  const useCity = (params) => {
+    const city = useMemo(() => {
+      if (params) {
+        return params;
+      } else {
+        return "jaipur";
+      }
+    }, [params]);
+  
+    return city;
+  };
+  const city = useCity(params);
+
+  
+
   useEffect(() => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/forecast/?q=jaipur&units=metric&APPID=73009497cbc082d8b80a2e8dc748fd55"
+        `https://api.openweathermap.org/data/2.5/weather/?q=${city}&units=metric&APPID=73009497cbc082d8b80a2e8dc748fd55`
       )
       .then((res) => {
-        SetDetails(res.data);
-        console.log(res.data);
+        setDetails(res.data);
       });
-  }, []);
-  // console.log(details.country)
+
+    // forecast days
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/forecast/?q=${city}&units=metric&APPID=73009497cbc082d8b80a2e8dc748fd55`
+      )
+      .then((res) => {
+        const forecast = filterForecast(res.data.list);
+        setForecast(forecast);
+        const hourforecast = forecast[Object.keys(forecast)[1]];
+        sethourlyForecast(hourforecast);
+      });
+  }, [city]);
+
+  if (!details.main) {
+    return <h1 className=" flex justify-center items-center">Loading.....</h1>;
+  }
   return (
-    <div className="h-screen w-[30vw] max-md:w-screen bgcolorDeatils max-md:h-full p-2 ">
-      <div className="text-white flex  items-center flex-col  ">
+    <div className=" bgcolorDeatils pb-[30px]">
+
+      <div className="text-white flex flex-col w-screen items-center justify-center">
         {/* top */}
-        <Topcard 
-        name={details.city.name}
-         country={details.city.country} 
-         icon={details.list.weather.icon}
-          />
+        <Topcard
+          name={details.name}
+          country={details.sys.country}
+          icon={details.weather[0].icon}
+          temp={details.main.temp}
+          description={details.weather[0].description}
+          main={details.weather[0].main}
+          pressure={details.main.pressure}
+          humidity={details.main.humidity}
+        />
         {/* mid  */}
-        <div className="flex justify-center gap-10 mt-4">
-          <HourCard />
-          <HourCard />
-          <HourCard />
-          <HourCard />
+        <div className=" max-md:grid grid-cols-4 max-md:gap-2 mt-4  gap-5 flex">
+          {hourlyForecast.map((hourData, index) => (
+            <HourCard
+              key={index}
+              temp={hourData.main.temp}
+              icon={hourData.weather[0].icon}
+              time={hourData.dt_txt}
+            />
+          ))}
         </div>
         {/* bottom */}
-        <div className="flex flex-col items-center gap-5 mt-6">
-          <DayForecastCard />
-          <DayForecastCard />
-          <DayForecastCard />
-          <DayForecastCard />
-          <DayForecastCard />
+        <div className="flex flex-col gap-3 justify-center items-center mt-6">
+          {Object.keys(foreCast).map((data) => (
+            <DayForecastCard key={data} date={foreCast[data]} />
+          ))}
         </div>
       </div>
     </div>

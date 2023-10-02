@@ -1,15 +1,11 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+'use client'
+import { useState } from "react";
 import DeatilsSide from "./components/DeatilsSide";
 
 export default function Home() {
-  
   return (
-    <main className="">
-    <DeatilsSide 
-        />
-  
+    <main className="mt-[50px]">
+     <DeatilsSide />
     </main>
   );
 }

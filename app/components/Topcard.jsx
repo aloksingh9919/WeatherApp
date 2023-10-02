@@ -1,35 +1,30 @@
 import React from 'react'
-// import {formet, date} from "../libs/dateFormat"
-const Topcard = ({icon, country,name}) => {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  
-  let datetime = new Date(1695826800 * 1000);  
-  
-  let date = datetime.toDateString();
-  // let day = days[datetime.getDay()];
+import {formatDate} from "../libs/dateFormat"
+
+const Topcard = ({icon, country,name,temp,main,description,humidity,pressure}) => {
+const date = formatDate(Date.now()/1000)
   return (
-    <div className="flex  items-center flex-col gap-1">
-        <h1 className="text-3xl font-bold">{name} , {country}</h1>
-        <h3 className="text-sm mt-1"> {date}</h3>
+    <div className="flex flex-col items-center">
+        <span className="text-[30px] font-bold">{name} , {country}</span>
+        <h3 className="text-md mt-1 text-[900]">{date}</h3>
         <img
           src={`http://openweathermap.org/img/wn/${icon}.png`}
           alt="loading"
-          width={70}
-          height={70}
-          className=""
+          className="w-[80px] h-[80px]"
         />
-        <h1 className="text-[55px] "> 36.62°</h1>
-        <div className="rounded-2xl bgtop">
-          <span className="mx-2">Haze ,</span>
-          <span className="mx-2">Few Clouds</span>
+        <h1 className="text-[40px] font-bold"> {temp}°</h1>
+        <div className='flex gap-2'>
+        <div className="rounded-2xl bgtop w-fit font-semibold">
+          <span className="mx-2">humidity:{humidity}</span>
+        </div>
+
+        <div className="rounded-2xl bgtop w-fit font-semibold">
+          <span className="mx-2">{main} ,</span>
+          <span className="mx-2">{description}</span>
+        </div>
+        <div className="rounded-2xl bgtop w-fit font-semibold">
+          <span className="mx-2"> Pressure:{pressure}</span>
+        </div>
         </div>
       </div>
   )
