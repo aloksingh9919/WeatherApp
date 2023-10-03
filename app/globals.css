@@ -1,39 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Fjalla+One&family=Josefin+Sans&family=Kanit:wght@500&family=Lumanosimo&family=Noto+Sans+Cypro+Minoan&family=Roboto+Slab&family=Roboto:ital,wght@0,300;1,300&display=swap');
 
 * {
+  font-family: 'Josefin Sans', sans-serif;
   overflow-x: hidden;
-  color: black;
+  color: white
 }
 
 .bgnav {
-  background: linear-gradient(
-    rgba(247, 103, 78, 0.541),
-    rgba(68, 86, 86, 0.578)
-  );
+  background-color: rgb(18, 18, 18);
+
 }
 .bglogo {
   background: linear-gradient(
-    rgba(252, 255, 52, 0.658),
-    rgba(253, 112, 112, 0.651)
+    rgba(1, 255, 230, 0.778),
+    rgba(7, 227, 128, 0.47)
   );
 }
 .bgcolorDeatils {
-  background: linear-gradient(
-    rgba(81, 70, 70, 0.856),
-    rgba(89, 18, 54, 0.549)
-  );
+  /* background: linear-gradient(
+    rgb(100, 98, 93),
+    rgb(88, 80, 62)
+  ); */
+  @apply bg-gradient-to-t from-slate-500 to-amber-500
 }
 .bgtop {
-  background: linear-gradient(
-    rgba(52, 255, 255, 0.236),
-    rgba(253, 112, 112, 0.651)
-  );
+  background-color: rgba(31, 25, 2, 0.167);
 }
 .bghour {
-  background: linear-gradient(
-    rgba(238, 241, 7, 0.129),
-    rgba(253, 112, 112, 0.651)
-  );
+  background: rgba(0, 0, 0, 0.075)
+}
+.loader {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

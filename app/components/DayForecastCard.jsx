@@ -23,7 +23,7 @@ const showforecast = ()=>{
       <span className="text-[20px] font-semibold">{maxTemp}°</span> /{" "}
       <span className="text-[20px] font-semibold">{minTemp}°</span>
     </div>
-    <div onClick={showforecast} className=" cursor-pointer flex gap-1 hover:bg-blue-200 px-1 rounded-lg">
+    <div onClick={showforecast} className=" cursor-pointer flex gap-1 hover:bg-zinc-800 px-1 rounded-lg">
       <BiSortDown size={30}/>
       <span className=' font-semibold text-md '>All Day</span>
     </div>

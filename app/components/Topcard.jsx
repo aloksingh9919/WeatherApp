@@ -19,7 +19,7 @@ const date = formatDate(Date.now()/1000)
         </div>
 
         <div className="rounded-2xl bgtop w-fit font-semibold">
-          <span className="mx-2">{main} ,</span>
+          <span className="mx-2">{main},</span>
           <span className="mx-2">{description}</span>
         </div>
         <div className="rounded-2xl bgtop w-fit font-semibold">

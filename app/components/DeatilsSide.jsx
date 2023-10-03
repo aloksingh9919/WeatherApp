@@ -1,17 +1,17 @@
 "use client";
-import { useEffect, useState,useMemo} from "react";
+import { useEffect, useState, useMemo } from "react";
 import HourCard from "./HourCard";
+import Loader from "./Loader";
 import Topcard from "./Topcard";
 import axios from "axios";
 import DayForecastCard from "./DayForecastCard";
 import { filterForecast } from "../libs/dateFormat";
-
-
 const DeatilsSide = ({ params }) => {
+
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY 
   const [details, setDetails] = useState({});
   const [foreCast, setForecast] = useState([]);
   const [hourlyForecast, sethourlyForecast] = useState([]);
-
 
   const useCity = (params) => {
     const city = useMemo(() => {
@@ -21,17 +21,15 @@ const DeatilsSide = ({ params }) => {
         return "jaipur";
       }
     }, [params]);
-  
+
     return city;
   };
   const city = useCity(params);
 
-  
-
   useEffect(() => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather/?q=${city}&units=metric&APPID=73009497cbc082d8b80a2e8dc748fd55`
+        `https://api.openweathermap.org/data/2.5/weather/?q=${city}&units=metric&APPID=${API_KEY}`
       )
       .then((res) => {
         setDetails(res.data);
@@ -40,7 +38,7 @@ const DeatilsSide = ({ params }) => {
     // forecast days
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/forecast/?q=${city}&units=metric&APPID=73009497cbc082d8b80a2e8dc748fd55`
+        `https://api.openweathermap.org/data/2.5/forecast/?q=${city}&units=metric&APPID=${API_KEY}`
       )
       .then((res) => {
         const forecast = filterForecast(res.data.list);
@@ -51,11 +49,13 @@ const DeatilsSide = ({ params }) => {
   }, [city]);
 
   if (!details.main) {
-    return <h1 className=" flex justify-center items-center">Loading.....</h1>;
+    return (
+        
+       <Loader/>
+    );
   }
   return (
     <div className=" bgcolorDeatils pb-[30px]">
-
       <div className="text-white flex flex-col w-screen items-center justify-center">
         {/* top */}
         <Topcard

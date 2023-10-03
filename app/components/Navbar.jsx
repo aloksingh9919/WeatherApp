@@ -9,7 +9,9 @@ const navbar = () => {
 
   const handleSubmitSearch = (e) => {
     e.preventDefault();
-    router.push(`/search/${search}`);
+    if(search.length>0){
+      router.push(`/search/${search}`);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -29,14 +31,14 @@ const navbar = () => {
             height={35} 
             />
             </div>
-          <span className="font-bold text-xl max-sm:text-[16px] leading-normal"> WeatherApp </span>
+          <span className="font-bold text-xl max-sm:text-[16px] leading-normal text-white"> WeatherApp </span>
         </div>
         <form
           className="absolute top-2 right-10 w-[250px] h-[30px] flex items-center bglogo justify-center rounded-lg max-sm:w-[150px] max-sm:h-[25px]"
           onSubmit={handleSubmitSearch}
         >
           <input
-            className="placeholder:text-black w-[180px] bg-transparent outline-none max-sm:w-[120px] "
+            className="placeholder:text-white w-[180px] bg-transparent outline-none max-sm:w-[120px] "
             type="text"
             placeholder="search location"
             onChange={handleInputChange}
